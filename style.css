@@ -1,0 +1,150 @@
+body{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+    background-color: black;
+    overflow: hidden;
+}
+.imgBackground{
+    max-height: 97vh;
+    max-width: 90vw;
+    animation: fadeIn 1s ease-in-out;
+}
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+
+.img_letter_C{
+    position: absolute;
+    top: 32%;
+    left: 16%;
+    width: 8%;
+    z-index: 1;
+}
+@keyframes moveCfromRightToLeft {
+    0% {
+        left: 80%;
+        opacity: 0;
+    }
+    100% {
+        left: 16%;
+        opacity: 1;
+    }
+}
+.img_letter_O{
+    position: absolute;
+    top: 32%;
+    left: 28%;
+    width: 8%;
+    z-index: 1;
+}
+@keyframes moveOfromRightToLeft {
+    0% {
+        left: 80%;
+        opacity: 0;
+    }
+    100% {
+        left: 28%;
+        opacity: 1;
+    }
+}
+.img_letter_R{
+    position: absolute;
+    top: 32%;
+    left: 40%;
+    width: 8%;
+    z-index: 1;
+}
+@keyframes moveRfromRightToLeft {
+    0% {
+        left: 80%;
+        opacity: 0;
+    }
+    100% {
+        left: 40%;
+        opacity: 1;
+    }
+}
+.img_letter_D{
+    position: absolute;
+    top: 32%;
+    left: 52%;
+    width: 8%;
+    z-index: 1;
+
+}
+@keyframes moveDfromRightToLeft {
+    0% {
+        left: 80%;
+        opacity: 0;
+    }
+    100% {
+        left: 52%;
+        opacity: 1;
+    }
+}
+.img_letter_E{
+    position: absolute;
+    top: 32%;
+    left: 64%;
+    width: 8%;
+    z-index: 1;
+}
+@keyframes moveEfromRightToLeft {
+    0% {
+        left: 80%;
+        opacity: 0;
+    }
+    100% {
+        left: 64%;
+        opacity: 1;
+    }
+}
+.img_letter_L{
+    position: absolute;
+    top: 32%;
+    left: 76%;
+    width: 8%;
+    z-index: 1;
+}
+@keyframes moveLfromRightToLeft {
+    0% {
+        left: 80%;
+        opacity: 0;
+    }
+    100% {
+        left: 76%;
+        opacity: 1;
+    }
+}
+
+
+.startButton{
+    position: absolute;
+    bottom: 20%;
+    right: 18%;
+    cursor: pointer;
+    transition: 0.3s;
+}
+.startButton:hover{
+    transform: scale(1.1);
+    transition: 0.3s;
+}
+@keyframes fadeInButton {
+    0% {
+        right: -36%;
+        opacity: 0;
+    }
+    100% {
+        right: 18%;
+        opacity: 1;
+    }
+}
