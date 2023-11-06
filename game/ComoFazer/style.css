@@ -1,0 +1,82 @@
+@font-face {
+    font-family: 'MinhaFonte';
+    src: url('../../assets/startPage/cordelina.otf') format('truetype');
+  }
+  
+body{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+    background-color: black;
+    overflow: hidden;
+}
+.imgBackground{
+    height: 100vh;
+    width: 90vw;
+    animation: fadeIn 1s ease-in-out;
+}
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+.backgroundLetters{
+    position: absolute;
+    top: 13%;
+    left: 30%;
+    z-index: 2;
+    width: 55%;
+}
+
+.textareaLetters{
+    scrollbar-color: black !important;
+    scrollbar-face-color: black;
+    overflow: scroll;
+    font-family: 'MinhaFonte', sans-serif;
+    font-size: 32px;
+    overflow-wrap: break-word;
+    user-select: none;
+    position: absolute;
+    top: 14%;
+    left: 32%;
+    z-index: 2;
+    height: 54%;
+    width: 50%;
+    background-color: #cfd994;
+    padding: 10px;
+}
+
+
+
+.backButton{
+    position: absolute;
+    bottom: 10%;
+    left: 18%;
+    z-index: 3;
+    cursor: pointer;
+    transition: 0.3s;
+}
+.backButton:hover{
+    transform: scale(1.1);
+    transition: 0.3s;
+}
+
+
+.nextButton{
+    position: absolute;
+    bottom: 10%;
+    right: 18%;
+    z-index: 3;
+    cursor: pointer;
+    transition: 0.3s;
+}
+.nextButton:hover{
+    transform: scale(1.1);
+    transition: 0.3s;
+}

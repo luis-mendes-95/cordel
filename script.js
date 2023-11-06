@@ -6,12 +6,13 @@ const body = document.querySelector("body");
 const imgBackground = document.createElement("img");
 imgBackground.classList.add("imgBackground");
 imgBackground.src = "./assets/startPage/cenario_1.svg";
+imgBackground.style.width = `${window.innerWidth}px`;
 body.appendChild(imgBackground);
 
 
 //ALTERA O TAMANHO DO BACKGROUND IMG CONFORME O USUÁRIO ALTERA O TAMANHO DA TELA
 window.addEventListener('resize', function(event) {
-    imgBackground.style.width = `${window.innerWidth}px`;;
+    imgBackground.style.width = `${window.innerWidth}px`;
     console.log('A largura da janela foi alterada para: ' + window.innerWidth);
 });
 
@@ -53,7 +54,7 @@ startButton.classList.add("startButton");
 startButton.src = "./assets/startPage/botao_iniciar.svg";
 setTimeout(() => {
     startButton.style.animation = "fadeInButton 2s ease-in-out"
-    startButton.addEventListener("click", () => {location.href = "./game/mainMenu"})
+    startButton.addEventListener("click", () => {location.href = "./game/MainMenu"})
     body.appendChild(startButton);
 }, 1000);
 

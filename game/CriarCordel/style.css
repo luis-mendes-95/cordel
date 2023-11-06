@@ -1,0 +1,134 @@
+@font-face {
+    font-family: 'MinhaFonte';
+    src: url('../../assets/startPage/cordelina.otf') format('truetype');
+  }
+  
+body{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+    background-color: black;
+    overflow: hidden;
+}
+.imgBackground{
+    height: 100vh;
+    width: 90vw;
+    animation: fadeIn 1s ease-in-out;
+}
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+.backgroundLetters{
+    position: absolute;
+    top: 13%;
+    left: 30%;
+    z-index: 2;
+    width: 55%;
+}
+
+.textareaLetters{
+    scrollbar-color: black !important;
+    scrollbar-face-color: black;
+    overflow: scroll;
+    font-family: 'MinhaFonte', sans-serif;
+    font-size: 32px;
+    overflow-wrap: break-word;
+    user-select: none;
+    position: absolute;
+    top: 14%;
+    left: 32%;
+    z-index: 2;
+    height: 54%;
+    width: 50%;
+    background-color: #cfd994;
+    padding: 10px;
+}
+
+
+
+.backButton{
+    position: absolute;
+    bottom: 7%;
+    left: 11%;
+    z-index: 3;
+    width: 10%;
+    cursor: pointer;
+    transition: 0.3s;
+}
+.backButton:hover{
+    transform: scale(1.1);
+    transition: 0.3s;
+}
+
+.criarEstrofeButton{
+    position: absolute;
+    bottom: 7%;
+    left: 32%;
+    z-index: 3;
+    width: 17%;
+    cursor: pointer;
+    transition: 0.3s;
+}
+.criarEstrofeButton:hover{
+    transform: scale(1.1);
+    transition: 0.3s;
+}
+
+.buttonConfirmar{
+    position: absolute;
+    bottom: 7%;
+    right: 11%;
+    z-index: 3;
+    width: 13%;
+    cursor: pointer;
+    transition: 0.3s;
+}
+.buttonConfirmar:hover{
+    transform: scale(1.1);
+    transition: 0.3s;
+}
+
+
+
+.varal{
+    position: absolute;
+    height: 150px;
+    top: 15%;
+    width: 86.5%;
+    left: 6.5%;
+}
+
+
+.estrofeIndicator{
+    position: absolute;
+    top: 10%;
+    left: 15%;
+    font-size: 35px;
+    font-family: 'MinhaFonte';
+}
+
+.divTitleAndAuthor{
+    position: absolute;
+    top: 10%;
+    left: 50%;
+    border: 2pt solid black;
+    padding: 10px;
+    border-radius: 18px;
+    display: flex;
+    flex-wrap: wrap;
+    width: 20%;
+    height: 10%;
+    justify-content: flex-start;
+    align-items: center;
+}
+.divTitleAndAuthor > input {
+    height: 5%;
+}
