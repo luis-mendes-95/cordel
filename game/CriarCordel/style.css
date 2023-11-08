@@ -1,8 +1,10 @@
+*{
+    user-select: none;
+}
 @font-face {
     font-family: 'MinhaFonte';
     src: url('../../assets/startPage/cordelina.otf') format('truetype');
-  }
-  
+}
 body{
     display: flex;
     flex-direction: column;
@@ -25,7 +27,6 @@ body{
         opacity: 1;
     }
 }
-
 .backgroundLetters{
     position: absolute;
     top: 13%;
@@ -33,7 +34,6 @@ body{
     z-index: 2;
     width: 55%;
 }
-
 .textareaLetters{
     scrollbar-color: black !important;
     scrollbar-face-color: black;
@@ -51,13 +51,10 @@ body{
     background-color: #cfd994;
     padding: 10px;
 }
-
-
-
 .backButton{
     position: absolute;
     bottom: 7%;
-    left: 11%;
+    left: 15%;
     z-index: 3;
     width: 10%;
     cursor: pointer;
@@ -67,7 +64,6 @@ body{
     transform: scale(1.1);
     transition: 0.3s;
 }
-
 .criarEstrofeButton{
     position: absolute;
     bottom: 7%;
@@ -81,11 +77,23 @@ body{
     transform: scale(1.1);
     transition: 0.3s;
 }
-
+.deleteEstrofeButton{
+    position: absolute;
+    bottom: 7%;
+    left: 52%;
+    z-index: 3;
+    width: 17%;
+    cursor: pointer;
+    transition: 0.3s;
+}
+.deleteEstrofeButton:hover{
+    transform: scale(1.1);
+    transition: 0.3s;
+}
 .buttonConfirmar{
     position: absolute;
     bottom: 7%;
-    right: 11%;
+    right: 15%;
     z-index: 3;
     width: 13%;
     cursor: pointer;
@@ -95,18 +103,13 @@ body{
     transform: scale(1.1);
     transition: 0.3s;
 }
-
-
-
 .varal{
     position: absolute;
     height: 150px;
-    top: 15%;
+    top: 25%;
     width: 86.5%;
     left: 6.5%;
 }
-
-
 .estrofeIndicator{
     position: absolute;
     top: 10%;
@@ -114,21 +117,157 @@ body{
     font-size: 35px;
     font-family: 'MinhaFonte';
 }
-
 .divTitleAndAuthor{
     position: absolute;
     top: 10%;
-    left: 50%;
+    left: 35%;
     border: 2pt solid black;
-    padding: 10px;
+    padding: 8px;
     border-radius: 18px;
+    width: 30%;
+    font-family: 'MinhaFonte';
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    height: 80px;
+
+}
+.divTitleAndInput{
+    font-size: 20px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    align-content: center;
+    height: 30px;
+}
+.divAuthorAndInput{
+    font-size: 20px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    align-content: center;
+    height: 30px;
+}
+input{
+    width: 70%;
+    height: 30px;
+    font-family: 'MinhaFonte';
+    font-size: 20px;
+}
+.clip{
+    position: absolute;
+    top: 25%;
+    left: 47.5%;
+    z-index: 1;
+}
+.paper{
+    position: absolute;
+    top: 30%;
+    left: 34%;
+    width: 28%;
+    height: 50%;
+    background-size: cover;
+    background-position: center;
+}
+.pTitle{
+    position: absolute;
+    top: 40%;
+    left: 38%;
+    font-size: 28px;
+    font-family: 'MinhaFonte';
+    text-align: center;
+    width: 20%;
+    font-weight: bold;
+    z-index: 2;
+}
+.pAuthor{
+    position: absolute;
+    top: 60%;
+    left: 38%;
+    font-family: 'MinhaFonte';
+    font-size: 20px;
+    text-align: center;
+    width: 20%;
+    z-index: 2;
+}
+.divBackgroundOptions{
+    position: absolute;
+    top: 40%;
+    right: 8%;
+    width: 25%;
+    height: 40%;
     display: flex;
     flex-wrap: wrap;
-    width: 20%;
-    height: 10%;
-    justify-content: flex-start;
-    align-items: center;
+    gap: 10px;
+    z-index: 1;
 }
-.divTitleAndAuthor > input {
-    height: 5%;
+.currentOption{
+    width: 30%;
+    height: 35%;
+    cursor: pointer;
+    transition: 0.3s;
 }
+.currentOption:hover{
+    transition: 0.3s;
+    text-shadow: 1pt 1pt 3pt black;
+}
+.paper-animacao-from-center-to-left {
+    animation: PaperFromCenterToLeft 1.5s ease-in-out;
+}
+.clip-animacao-from-center-to-left {
+    animation: ClipFromCenterToLeft 1.5s ease-in-out;
+}
+@keyframes PaperFromCenterToLeft {
+    0% {
+      opacity: 1;
+      left: 34%;
+    }
+    100% {
+      left: -134%;
+      opacity: 0;
+      transform: rotate(180deg);
+    }
+
+}
+@keyframes ClipFromCenterToLeft {
+    0% {
+      opacity: 1;
+      left: 47.5%;
+    }
+    100%{
+        left: -148%;
+        opacity: 0;
+        transform: rotate(180deg);
+    }
+
+}
+.returnButton{
+    position: absolute;
+    left: 30%;
+    bottom: 40%;
+    transform: rotate(-90deg);
+    width: 5%;
+    transition: 0.3s;
+    cursor: pointer;
+}
+.returnButton:hover{
+    transition: 0.3s;
+    width: 5.5%;
+}
+
+.nextButton{
+    position: absolute;
+    right: 33%;
+    bottom: 40%;
+    transform: rotate(90deg);
+    width: 5%;
+    transition: 0.3s;
+    cursor: pointer;
+}
+.nextButton:hover{
+    transition: 0.3s;
+    width: 5.5%;
+}
+
+
+  
