@@ -299,18 +299,22 @@ const changePage = () => {
                     returnButton.src = "./assets/botao_seta_para_cima.svg";
                     body.appendChild(returnButton);
                     returnButton.addEventListener("click", () => {
-                        currentPage -= 1;
-                        let paper = document.querySelector(".paper");
-                        let clip = document.querySelector(".clip");
-                        paper.classList.add("paper-animacao-from-center-to-left");
-                        clip.classList.add("clip-animacao-from-center-to-left");
-                        setTimeout(() => {
-                            if(paper) {paper.parentElement.removeChild(paper);};
-                            if(clip) {clip.parentElement.removeChild(clip);};
-                            
-                            
-                            changePage();
-                        }, 1000);
+
+                        if(currentPage > 0) {
+                            currentPage -= 1;
+                            let paper = document.querySelector(".paper");
+                            let clip = document.querySelector(".clip");
+                            paper.classList.add("paper-animacao-from-center-to-left");
+                            clip.classList.add("clip-animacao-from-center-to-left");
+                            setTimeout(() => {
+                                if(paper) {paper.parentElement.removeChild(paper);};
+                                if(clip) {clip.parentElement.removeChild(clip);};
+                                
+                                
+                                changePage();
+                            }, 1000);
+                        }
+
                     })
                 }
                 
@@ -331,21 +335,28 @@ const changePage = () => {
                     nextButton.src = "./assets/botao_seta_para_cima.svg";
                     body.appendChild(nextButton);
                     nextButton.addEventListener("click", () => {
-                        let pAuthor = document.querySelector(".pAuthor");
-                        let pTitle = document.querySelector(".pTitle");
-                        pAuthor.style.display = "none";
-                        pTitle.style.display = "none";
 
-                        currentPage += 1;
-                        let paper = document.querySelector(".paper");
-                        let clip = document.querySelector(".clip");
-                        paper.classList.add("paper-animacao-from-center-to-left");
-                        clip.classList.add("clip-animacao-from-center-to-left");
-                        setTimeout(() => {
-                            paper.parentElement.removeChild(paper);
-                            clip.parentElement.removeChild(clip);
-                            changePage();
-                        }, 1000);
+                        if(currentPage < estrofesQty) {
+
+                            let pAuthor = document.querySelector(".pAuthor");
+                            let pTitle = document.querySelector(".pTitle");
+                            pAuthor.style.display = "none";
+                            pTitle.style.display = "none";
+    
+                            currentPage += 1;
+                            let paper = document.querySelector(".paper");
+                            let clip = document.querySelector(".clip");
+                            paper.classList.add("paper-animacao-from-center-to-left");
+                            clip.classList.add("clip-animacao-from-center-to-left");
+                            setTimeout(() => {
+                                paper.parentElement.removeChild(paper);
+                                clip.parentElement.removeChild(clip);
+                                changePage();
+                            }, 1000);
+
+                        }
+                        
+
                     })
                 }
                 
@@ -368,11 +379,6 @@ const changePage = () => {
 
 //FUNÇÃO QUE ALTERA OS BOTÕES QUANDO EXISTE MAIS DE UMA PÁGINA
 const manageButtonsByPageQty = () => {
-    console.log("Estrofes: " + estrofesQty)
-    console.log("Página atual: " + currentPage)
-    console.log("Estrofes criadas: ")
-    console.log(currentVerses)
-    console.log("Background do papel: " + currentFrameBackground)
 
     //SE EXISTIR MAIS DE UMA ESTROFE, ALTERA O BOTÃO DE CRIAR ESTROFE PARA NOVA ESTROFE
     const changeButtonByEstrofeQty = () => {
@@ -409,11 +415,12 @@ const manageButtonsByPageQty = () => {
                     setTimeout(() => {
                         console.log("excluir a página: " + currentPage)
                         currentVerses.splice(currentPage - 1, 1);
-                        estrofesQty -= 1;
-                        currentPage -= 1;
-                        console.log(currentVerses)
-                        if(paper) {paper.parentElement.removeChild(paper);};
-                        if(clip) {clip.parentElement.removeChild(clip);};
+                        if(estrofesQty > 0) {estrofesQty -= 1;}
+                        if(currentPage > 0) {currentPage -= 1;}
+
+                        console.log(estrofesQty)
+                        if(paper) {paper.parentNode.removeChild(paper);};
+                        if(clip) {clip.parentNode.removeChild(clip);};
                         
                         manageButtonsByPageQty();
                         changePage();
