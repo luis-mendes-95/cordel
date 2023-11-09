@@ -243,7 +243,7 @@ input{
 }
 .returnButton{
     position: absolute;
-    left: 30%;
+    left: 29%;
     bottom: 40%;
     transform: rotate(-90deg);
     width: 5%;
@@ -254,7 +254,6 @@ input{
     transition: 0.3s;
     width: 5.5%;
 }
-
 .nextButton{
     position: absolute;
     right: 33%;

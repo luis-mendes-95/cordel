@@ -390,19 +390,40 @@ const manageButtonsByPageQty = () => {
     const createDeleteEstrofeButton = () => {
         
         if (currentPage > 0) {
-            const deleteEstrofeButton = document.createElement("img");
-            deleteEstrofeButton.classList.add("deleteEstrofeButton");
-            deleteEstrofeButton.src = "./assets/botao_excluir_folha.svg";
-            body.appendChild(deleteEstrofeButton);
+            const existingButton = document.querySelector(".deleteEstrofeButton");
+            if(!existingButton){
+                const deleteEstrofeButton = document.createElement("img");
+                deleteEstrofeButton.classList.add("deleteEstrofeButton");
+                deleteEstrofeButton.src = "./assets/botao_excluir_folha.svg";
+                body.appendChild(deleteEstrofeButton)
+
+                //FUNÇÃO QUE DELETA A ESTROFE ATUAL
+                deleteEstrofeButton.addEventListener("click", () => {
 
 
-            //FUNÇÃO QUE DELETA A ESTROFE ATUAL
-            deleteEstrofeButton.addEventListener("click", () => {
-                console.log("excluir a página: " + currentPage)
-                currentVerses.splice(currentPage - 1, 1);
-                console.log(currentVerses)
-                manageButtonsByPageQty();
-            })
+
+                    let paper = document.querySelector(".paper");
+                    let clip = document.querySelector(".clip");
+                    paper.classList.add("paper-animacao-from-center-to-left");
+                    clip.classList.add("clip-animacao-from-center-to-left");
+                    setTimeout(() => {
+                        console.log("excluir a página: " + currentPage)
+                        currentVerses.splice(currentPage - 1, 1);
+                        estrofesQty -= 1;
+                        currentPage -= 1;
+                        console.log(currentVerses)
+                        if(paper) {paper.parentElement.removeChild(paper);};
+                        if(clip) {clip.parentElement.removeChild(clip);};
+                        
+                        manageButtonsByPageQty();
+                        changePage();
+                    }, 1000);
+                })
+            }
+;
+
+
+
 
 
         } else if (currentPage === 0) {
