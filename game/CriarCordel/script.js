@@ -3,6 +3,9 @@ let estrofesQty = 0;
 let currentPage = 0;
 let currentFrameBackground = 0;
 
+//DEFINE SE ESTÁ NO FINAL OU NÃO
+let inTheFinal = false;
+
 //DEFINE TÍTULO E AUTOR
 let currentTitle = ""
 let currentAuthor = ""
@@ -52,7 +55,6 @@ renderBackground();
 //ALTERA O TAMANHO DO BACKGROUND IMG CONFORME O USUÁRIO ALTERA O TAMANHO DA TELA
 window.addEventListener('resize', function(event) {
     imgBackground.style.width = `${window.innerWidth}px`;;
-    console.log('A largura da janela foi alterada para: ' + window.innerWidth);
 });
 
 //RENDERIZA BOTÃO VOLTAR
@@ -82,7 +84,7 @@ const buttonConfirmar = () => {
     buttonConfirmar.src = "./assets/botao_confirmar.svg"
     buttonConfirmar.classList.add("buttonConfirmar")
     buttonConfirmar.addEventListener("click", ()=>{
-        window.location.href = "../../game/MainMenu"
+        checkIfCanConclude();
     })
     body.appendChild(buttonConfirmar);
 }
@@ -106,20 +108,23 @@ const buttonCriarEstrofe = () => {
 
     criarEstrofeButton.addEventListener("click", ()=>{
 
+        let divParagraphs = document.querySelector(".divParagraphs");
+        if(divParagraphs) { divParagraphs.parentElement.removeChild(divParagraphs)};
+
         //let existingButton = document.querySelector(".returnButton")
         //if(existingButton) {body.removeChild(existingButton)};
 
         estrofesQty += 1;
         currentPage = estrofesQty;
 
-        const estrofe = {
-            input1: "",
-            input2: "",
-            input3: "",
-            input4: "",
-            input5: "",
-            input6: "",
-        }
+        let estrofe = [
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+        ]
         currentVerses.push(estrofe);
 
         let paper = document.querySelector(".paper");
@@ -135,6 +140,7 @@ const buttonCriarEstrofe = () => {
             clip.parentElement.removeChild(clip);
 
             changePage();
+            renderEstrofesCreator();
         }, 1000);
 
     })
@@ -292,6 +298,8 @@ const changePage = () => {
         const renderReturnButton = () => {
             if (currentPage > 0) {
 
+
+
                 let existingButton = document.querySelector(".returnButton");
                 if(!existingButton) {
                     let returnButton = document.createElement("img");
@@ -300,18 +308,22 @@ const changePage = () => {
                     body.appendChild(returnButton);
                     returnButton.addEventListener("click", () => {
 
+                        let divParagraphs = document.querySelector(".divParagraphs");
+                        if(divParagraphs) { divParagraphs.parentElement.removeChild(divParagraphs)};
+
                         if(currentPage > 0) {
                             currentPage -= 1;
                             let paper = document.querySelector(".paper");
                             let clip = document.querySelector(".clip");
-                            paper.classList.add("paper-animacao-from-center-to-left");
-                            clip.classList.add("clip-animacao-from-center-to-left");
+                            paper.classList.add("paper-animacao-from-center-to-right");
+                            clip.classList.add("clip-animacao-from-center-to-right");
                             setTimeout(() => {
                                 if(paper) {paper.parentElement.removeChild(paper);};
                                 if(clip) {clip.parentElement.removeChild(clip);};
                                 
                                 
                                 changePage();
+                                renderEstrofesCreator();
                             }, 1000);
                         }
 
@@ -326,6 +338,9 @@ const changePage = () => {
         renderReturnButton();
 
         const renderNextButton = () => {
+
+
+
             if (currentPage < estrofesQty) {
 
                 let existingButton = document.querySelector(".nextButton");
@@ -335,6 +350,9 @@ const changePage = () => {
                     nextButton.src = "./assets/botao_seta_para_cima.svg";
                     body.appendChild(nextButton);
                     nextButton.addEventListener("click", () => {
+
+                        let divParagraphs = document.querySelector(".divParagraphs");
+                        if(divParagraphs) { divParagraphs.parentElement.removeChild(divParagraphs)};
 
                         if(currentPage < estrofesQty) {
 
@@ -352,6 +370,7 @@ const changePage = () => {
                                 paper.parentElement.removeChild(paper);
                                 clip.parentElement.removeChild(clip);
                                 changePage();
+                                renderEstrofesCreator();
                             }, 1000);
 
                         }
@@ -406,24 +425,24 @@ const manageButtonsByPageQty = () => {
                 //FUNÇÃO QUE DELETA A ESTROFE ATUAL
                 deleteEstrofeButton.addEventListener("click", () => {
 
-
+                    let divParagraphs = document.querySelector(".divParagraphs");
+                    if(divParagraphs) { divParagraphs.parentElement.removeChild(divParagraphs)};
 
                     let paper = document.querySelector(".paper");
                     let clip = document.querySelector(".clip");
-                    paper.classList.add("paper-animacao-from-center-to-left");
-                    clip.classList.add("clip-animacao-from-center-to-left");
+                    paper.classList.add("paper-animacao-from-center-to-bottom");
+                    clip.classList.add("clip-animacao-from-center-to-bottom");
                     setTimeout(() => {
-                        console.log("excluir a página: " + currentPage)
                         currentVerses.splice(currentPage - 1, 1);
                         if(estrofesQty > 0) {estrofesQty -= 1;}
                         if(currentPage > 0) {currentPage -= 1;}
 
-                        console.log(estrofesQty)
                         if(paper) {paper.parentNode.removeChild(paper);};
                         if(clip) {clip.parentNode.removeChild(clip);};
                         
                         manageButtonsByPageQty();
                         changePage();
+                        renderEstrofesCreator();
                     }, 1000);
                 })
             }
@@ -441,3 +460,174 @@ const manageButtonsByPageQty = () => {
     createDeleteEstrofeButton();
 }
 manageButtonsByPageQty();
+
+//FUNÇÃO QUE CRIA A CAIXA DE ESTROFES E RENDERIZA ELAS NAS PÁGINAS.
+const renderEstrofesCreator = () => {
+
+    let existingEstrofeDiv = document.querySelector(".divEstrofeInputs");
+    if (existingEstrofeDiv) { existingEstrofeDiv.parentElement.removeChild(existingEstrofeDiv)};
+
+    //VERIFICA EM QUAL PÁGINA ESTÁ E SE DEVE SER RENDERIZADO
+    if(currentPage > 0) {
+
+        const renderEstrofeInputs = () => {
+
+            //RENDERIZA A DIV BASE
+            const divEstrofeInputs = document.createElement("div");
+            divEstrofeInputs.classList.add("divEstrofeInputs");
+            body.appendChild(divEstrofeInputs);
+
+            //RENDERIZA TODOS OS 6 INPUTS
+            const renderAllSixInputs = () => {
+                
+                //RENDERIZA A DIV QUE CONTERÁ OS PARÁGRAFOS
+                const divParagraphs = document.createElement("div");
+                divParagraphs.classList.add("divParagraphs");
+
+                for (let i = 0; i < 6; i++){
+
+                    //CRIA A DIV BASE DO LABEL E INPUT
+                    let currentDivEstrofeCreate = document.createElement("div");
+                    currentDivEstrofeCreate.classList.add("currentDivEstrofeCreate");
+
+                    //CRIA O LABEL E INPUT
+                    let labelEstrofeCreate = document.createElement("label")
+                    labelEstrofeCreate.classList.add("labelEstrofeCreate");
+                    labelEstrofeCreate.innerText = i + 1;
+                    let inputEstrofeCreate = document.createElement("input")
+                    inputEstrofeCreate.classList.add("inputEstrofeCreate");
+                    inputEstrofeCreate.value = currentVerses[currentPage -1][i];
+                    inputEstrofeCreate.maxLength = 40;
+
+                    //INSERE-OS DENTRO DA DIV BASE DO LABEL E INPUT
+                    currentDivEstrofeCreate.append(labelEstrofeCreate, inputEstrofeCreate)
+
+                    //INSERE A DIV COM LABEL E INPUT DENTRO DA DIV BASE GERAL
+                    divEstrofeInputs.appendChild(currentDivEstrofeCreate);
+
+                    //CRIA OS PARÁGRAFOS QUE TAMBÉM IRÃO RECEBER AS INFORMAÇÕES
+                    let pEstrofeVerse = document.createElement("p");
+                    pEstrofeVerse.classList.add("pEstrofeVerse");
+                    pEstrofeVerse.innerText = currentVerses[currentPage - 1][i]
+
+
+                    //FUNÇÃO PARA ALTERAR A VARIÁVEL COM OS NOVOS VALORES INSERIDOS
+                    inputEstrofeCreate.addEventListener("input", () => {
+
+                        currentVerses[currentPage - 1][i] = inputEstrofeCreate.value;
+                        pEstrofeVerse.innerText = currentVerses[currentPage - 1][i];
+                        
+                    })
+
+                    divParagraphs.appendChild(pEstrofeVerse);
+
+                }
+
+                body.append(divParagraphs);
+
+            }
+            if(inTheFinal === false) {
+                renderAllSixInputs();  
+            }
+
+        }
+        renderEstrofeInputs();
+    }
+
+
+    //ATUALIZA TODAS AS INFORMAÇÕES CONFORME O INPUT É PREENCHIDO
+
+
+
+}
+renderEstrofesCreator();
+
+//FUNÇÃO QUE VERIFICA SE PODE CONCLUIR O CORDEL
+const checkIfCanConclude = () => {
+
+    if(estrofesQty === 0) {
+       renderModal("É necessário preencher ao menos uma estrofe!");
+    } else {
+        let correct = 0;
+
+        currentVerses.forEach((versos)=>{
+            versos.forEach((verso)=>{
+                if(verso !== ""){
+                    correct += 1;
+                }
+            })
+        });
+    
+        if(correct < 2) {
+            renderModal("É necessário preencher ao menos dois versos!");
+        } else {
+            let pAuthor = document.querySelector(".pAuthor");
+            let pTitle = document.querySelector(".pTitle");
+
+            if(pAuthor.innerText !== "" && pTitle.innerText !== "") {
+                renderFinal();
+            } else {
+                renderModal("Título e autor não podem estar em branco");
+            }
+
+        }
+    }
+
+
+}
+
+//FUNÇÃO QUE RENDERIZA MODAL
+const renderModal = (string) => {
+
+    //DIV DE FUNDO DO MODAL PARA BLOQUEAR OS CLIQUES DE FUNDO
+    const divBackgroundModal = document.createElement("div");
+    divBackgroundModal.classList.add("divBackgroundModal");
+
+    //IMG QUE TEM A MOLDURA
+    const imgMoldura = document.createElement("img");
+    imgMoldura.classList.add("divMoldura");
+    imgMoldura.src = "./assets/cenario_8.svg"
+
+    //ESCRITOS DO MODAL
+    const pModal = document.createElement("p");
+    pModal.classList.add("pModal");
+    pModal.innerText = string;
+
+    //BOTAO PARA FECHAR MODAL
+    const buttonCloseModal = document.createElement("img");
+    buttonCloseModal.classList.add("buttonCloseModal");
+    buttonCloseModal.src = "./assets/botao_voltar.svg"
+    
+
+    body.append(divBackgroundModal, imgMoldura, pModal, buttonCloseModal);
+
+    buttonCloseModal.addEventListener("click", () => {
+        body.removeChild(divBackgroundModal);
+        body.removeChild(imgMoldura);
+        body.removeChild(pModal);
+        body.removeChild(buttonCloseModal);
+    })
+
+
+}
+
+//RENDERIZA TELA FINAL
+const renderFinal = () => {
+
+    inTheFinal = true;
+
+    let divEstrofeInputs = document.querySelector(".divEstrofeInputs");
+    if(divEstrofeInputs){divEstrofeInputs.parentElement.removeChild(divEstrofeInputs)}
+
+    let divBackgroundOptions = document.querySelector(".divBackgroundOptions");
+    if(divBackgroundOptions){divBackgroundOptions.parentElement.removeChild(divBackgroundOptions)}
+
+    let estrofeIndicator = document.querySelector(".estrofeIndicator");
+    estrofeIndicator.style.display = "none";
+
+    let divTitleAndAuthor = document.querySelector(".divTitleAndAuthor");
+    if(divTitleAndAuthor){divTitleAndAuthor.parentElement.removeChild(divTitleAndAuthor)}
+
+    let imgBackground = document.querySelector(".imgBackground");
+    imgBackground.src = "./assets/cenario_11.svg"
+}
