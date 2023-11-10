@@ -615,8 +615,6 @@ const renderModal = (string) => {
 //RENDERIZA TELA FINAL
 const renderFinal = () => {
 
-
-
     if(!inTheFinal){
 
         //REMOVE OS PAPERS E VOLTA PARA A PÁGINA 1 PARA APRESENTAR CORDEL DA PAGINA FINAL
@@ -654,6 +652,12 @@ const renderFinal = () => {
             printButton.classList.add("printButton");
             restartButton.classList.add("restartButton");
 
+            editButton.addEventListener("click", undoRenderFinal);
+            restartButton.addEventListener("click", ()=>{
+                window.location.href = "/"
+            })
+            printButton.addEventListener("click", imprimirConteudo);
+
 
 
 
@@ -664,3 +668,88 @@ const renderFinal = () => {
     }
 
 }
+
+//FUNÇÃO DO BOTÃO EDITAR DO FINAL
+const undoRenderFinal = () => {
+    // Remove the background image
+    const backgroundFinal = document.querySelector(".backgroundFinal");
+    if (backgroundFinal) {
+        backgroundFinal.parentElement.removeChild(backgroundFinal);
+    }
+
+    // Reset the varal styles
+    let varal = document.querySelector(".varal");
+    if (varal) {
+        varal.style.zIndex = "";
+        varal.style.width = "";
+        varal.style.left = "";
+    }
+
+    // Remove the buttons
+    let editButton = document.querySelector(".editButton");
+    let printButton = document.querySelector(".printButton");
+    let restartButton = document.querySelector(".restartButton");
+
+    if (editButton) {
+        editButton.parentElement.removeChild(editButton);
+    }
+    if (printButton) {
+        printButton.parentElement.removeChild(printButton);
+    }
+    if (restartButton) {
+        restartButton.parentElement.removeChild(restartButton);
+    }
+
+    // Set inTheFinal variable back to false
+    inTheFinal = false;
+
+    if (currentPage === 0) {
+        let divEstrofeInputs = document.querySelector(".divEstrofeInputs");
+        if (divEstrofeInputs) {
+            divEstrofeInputs.parentElement.removeChild(divEstrofeInputs);
+        }
+    }
+}
+
+const imprimirConteudo = () => {
+    const win = window.open('', '', 'height=700, width=700');
+
+    win.document.write('<html><head>');
+    win.document.write('<title>Cordel</title>');
+    win.document.write('<style>');
+    win.document.write(`@font-face {
+        font-family: 'MinhaFonte';
+        src: url('../../assets/startPage/cordelina.otf') format('truetype');
+    }`);
+    win.document.write('body { width: 100%; display: flex; flex-wrap: wrap; justify-content: center; gap: 1cm; }');
+    win.document.write('.cordelDiv { background-size: cover; background-repeat: no-repeat; width: 8cm; height: 10cm; margin-bottom: 20px; padding: 10px; border: 2pt solid black; box-sizing: border-box; display: flex; flex-direction: column; justify-content: center; align-content: center; align-items: center; margin-top: 2cm }');
+    win.document.write('.cordelDiv p { margin-bottom: 5px; text-align: center; font-family: "MinhaFonte";}');
+    win.document.write('</style>');
+    win.document.write('</head><body>');
+
+    currentVerses.forEach((verse, index) => {
+        const currentDiv = document.createElement("div");
+        currentDiv.className = "cordelDiv";
+
+        //const backgroundIndex = (currentFrameBackground + index) % 6;
+        //const backgroundImage = papersBackground[`moldura${backgroundIndex + 1}`].big;
+        //currentDiv.style.backgroundImage = `url(${backgroundImage})`;
+
+        verse.forEach((paragraph) => {
+            const pParagraph = document.createElement("p");
+            pParagraph.innerText = paragraph;
+            currentDiv.appendChild(pParagraph);
+        })
+
+        win.document.body.appendChild(currentDiv);
+    })
+
+    win.document.write('</body></html>');
+
+    win.print();
+}
+
+
+
+
+
