@@ -11,7 +11,6 @@ body.appendChild(imgBackground);
 //ALTERA O TAMANHO DO BACKGROUND IMG CONFORME O USUÁRIO ALTERA O TAMANHO DA TELA
 window.addEventListener('resize', function(event) {
     imgBackground.style.width = `${window.innerWidth}px`;;
-    console.log('A largura da janela foi alterada para: ' + window.innerWidth);
 });
 
 //RENDERIZA O VARAL
@@ -37,7 +36,6 @@ const renderNotes = (index) => {
     imgnote.src = sequenciaNotas[index].src
 
     setTimeout(() => {
-        console.log(`Renderizando ${sequenciaNotas[index].nota}`);
         imgnote.style.animation = `move${sequenciaNotas[index].nota}fromRightToLeft ${calculateAnimationTime(index)}s ease-in-out`
         body.appendChild(imgnote);
     }, 300);

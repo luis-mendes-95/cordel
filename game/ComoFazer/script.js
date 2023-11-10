@@ -9,8 +9,7 @@ body.appendChild(imgBackground);
 
 //ALTERA O TAMANHO DO BACKGROUND IMG CONFORME O USUÁRIO ALTERA O TAMANHO DA TELA
 window.addEventListener('resize', function(event) {
-    imgBackground.style.width = `${window.innerWidth}px`;;
-    console.log('A largura da janela foi alterada para: ' + window.innerWidth);
+    imgBackground.style.width = `${window.innerWidth}px`;
 });
 
 //DEFINE A PÁGINA ATUAL
@@ -26,10 +25,8 @@ const buttonBack = () => {
         if(page > 4){
             imgBackground.src = `./assets/cenario_${page-1}.svg`;
             page -= 1;
-            console.log(page)
         } else if (page === 4){
             window.location.href = "../../game/MainMenu"
-            console.log(page)
         }
 
     })
@@ -49,7 +46,6 @@ const buttonNext = () => {
             page += 1;
             if (page === 7){
                 window.location.href = "../../game/MainMenu"
-                console.log(page)
             }
         } 
 

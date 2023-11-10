@@ -9,8 +9,7 @@ body.appendChild(imgBackground);
 
 //ALTERA O TAMANHO DO BACKGROUND IMG CONFORME O USUÁRIO ALTERA O TAMANHO DA TELA
 window.addEventListener('resize', function(event) {
-    imgBackground.style.width = `${window.innerWidth}px`;;
-    console.log('A largura da janela foi alterada para: ' + window.innerWidth);
+    imgBackground.style.width = `${window.innerWidth}px`;
 });
 
 //RENDERIZA FUNDO DOS ESCRITOS
