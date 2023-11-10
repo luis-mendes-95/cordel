@@ -332,7 +332,9 @@ const changePage = () => {
                 
             } else if (currentPage === 0) {
                 let existingButton = document.querySelector(".returnButton");
-                existingButton.parentElement.removeChild(existingButton);
+                if(existingButton){
+                    existingButton.parentElement.removeChild(existingButton);
+                }
             }
         };
         renderReturnButton();
@@ -526,9 +528,8 @@ const renderEstrofesCreator = () => {
                 body.append(divParagraphs);
 
             }
-            if(inTheFinal === false) {
-                renderAllSixInputs();  
-            }
+            renderAllSixInputs();  
+
 
         }
         renderEstrofeInputs();
@@ -614,20 +615,52 @@ const renderModal = (string) => {
 //RENDERIZA TELA FINAL
 const renderFinal = () => {
 
-    inTheFinal = true;
 
-    let divEstrofeInputs = document.querySelector(".divEstrofeInputs");
-    if(divEstrofeInputs){divEstrofeInputs.parentElement.removeChild(divEstrofeInputs)}
 
-    let divBackgroundOptions = document.querySelector(".divBackgroundOptions");
-    if(divBackgroundOptions){divBackgroundOptions.parentElement.removeChild(divBackgroundOptions)}
+    if(!inTheFinal){
 
-    let estrofeIndicator = document.querySelector(".estrofeIndicator");
-    estrofeIndicator.style.display = "none";
+        //REMOVE OS PAPERS E VOLTA PARA A PÁGINA 1 PARA APRESENTAR CORDEL DA PAGINA FINAL
+        currentPage = 0;
+        let paper = document.querySelector(".paper");
+        let clip = document.querySelector(".clip");
+        if(paper && clip) {
+            paper.parentElement.removeChild(paper);
+            clip.parentElement.removeChild(clip);
+            changePage();
+        }
 
-    let divTitleAndAuthor = document.querySelector(".divTitleAndAuthor");
-    if(divTitleAndAuthor){divTitleAndAuthor.parentElement.removeChild(divTitleAndAuthor)}
+        //TROCA A VARIAVEL PARA TRUE INFORMANDO QUE ESTÁ NO FINAL 
+        inTheFinal = true;
+        const backgroundFinal = document.createElement("img");
+        backgroundFinal.classList.add("backgroundFinal");
+        backgroundFinal.src = "./assets/cenario_11.svg"
+        body.appendChild(backgroundFinal);
 
-    let imgBackground = document.querySelector(".imgBackground");
-    imgBackground.src = "./assets/cenario_11.svg"
+        //COLOCA OS ITENS QUE ESTÃO ABAIXO DO BACKGROUND PARA FRENTE
+        let varal = document.querySelector(".varal");
+        if(varal){varal.style.zIndex = "5"; varal.style.width = "96%"; varal.style.left = "2%"}
+
+        //ADICIONA OS BOTÕES E FUNÇÕES DA TELA FINAL
+        const renderButtonsAndFunctions = () => {
+            const editButton = document.createElement("img");
+            const printButton = document.createElement("img");
+            const restartButton = document.createElement("img");
+
+            editButton.src = "./assets/botao_editar.svg";
+            printButton.src = "./assets/botao_imprimir.svg";
+            restartButton.src = "./assets/botao_reiniciar.svg";
+
+            editButton.classList.add("editButton");
+            printButton.classList.add("printButton");
+            restartButton.classList.add("restartButton");
+
+
+
+
+            body.append(editButton, printButton, restartButton);
+        }
+        renderButtonsAndFunctions();
+
+    }
+
 }
