@@ -712,41 +712,71 @@ const undoRenderFinal = () => {
 }
 
 const imprimirConteudo = () => {
-    const win = window.open('', '', 'height=700, width=700');
 
-    win.document.write('<html><head>');
-    win.document.write('<title>Cordel</title>');
-    win.document.write('<style>');
-    win.document.write(`@font-face {
-        font-family: 'MinhaFonte';
-        src: url('../../assets/startPage/cordelina.otf') format('truetype');
-    }`);
-    win.document.write('body { width: 100%; display: flex; flex-wrap: wrap; justify-content: center; gap: 1cm; }');
-    win.document.write('.cordelDiv { background-size: cover; background-repeat: no-repeat; width: 8cm; height: 10cm; margin-bottom: 20px; padding: 10px; border: 2pt solid black; box-sizing: border-box; display: flex; flex-direction: column; justify-content: center; align-content: center; align-items: center; margin-top: 2cm }');
-    win.document.write('.cordelDiv p { margin-bottom: 5px; text-align: center; font-family: "MinhaFonte";}');
-    win.document.write('</style>');
-    win.document.write('</head><body>');
+    //DIV GERAL DO MODAL DE IMPRESSAO
+    const divToPrint = document.createElement("div");
+    divToPrint.classList.add("divToPrint");
+    body.appendChild(divToPrint);
 
-    currentVerses.forEach((verse, index) => {
-        const currentDiv = document.createElement("div");
-        currentDiv.className = "cordelDiv";
+    //DIV QUE VAI CONTER TÍTULO E AUTOR
+    const divPaperToPrint = document.createElement("div");
+    divPaperToPrint.classList.add("divPaperToPrint");
 
-        //const backgroundIndex = (currentFrameBackground + index) % 6;
-        //const backgroundImage = papersBackground[`moldura${backgroundIndex + 1}`].big;
-        //currentDiv.style.backgroundImage = `url(${backgroundImage})`;
+    //IMG DE FUNDO DO DIV E AUTOR
+    const imgBackground = document.createElement("img");
+    imgBackground.classList.add("imgBackgroundToPrint")
+    if (currentFrameBackground === 0) { imgBackground.src =  papersBackground.moldura1.big} else
+    if (currentFrameBackground === 1) { imgBackground.src =  papersBackground.moldura2.big} else
+    if (currentFrameBackground === 2) { imgBackground.src =  papersBackground.moldura3.big} else
+    if (currentFrameBackground === 3) { imgBackground.src =  papersBackground.moldura4.big} else
+    if (currentFrameBackground === 4) { imgBackground.src =  papersBackground.moldura5.big} else
+    if (currentFrameBackground === 5) { imgBackground.src =  papersBackground.moldura6.big}
 
-        verse.forEach((paragraph) => {
+    //TÍTULO E AUTOR
+    const pTitleToPrint = document.createElement("p");
+    pTitleToPrint.classList.add("pTitleToPrint");
+    pTitleToPrint.innerText = currentTitle;
+    const pAutorToPrint = document.createElement("p");
+    pAutorToPrint.classList.add("pAutorToPrint");
+    pAutorToPrint.innerText = currentAuthor;
+
+    //INSERINDO IMAGEM DE FUNDO NA DIV DO TITULO E AUTOR
+    divPaperToPrint.append(imgBackground, pTitleToPrint, pAutorToPrint);
+
+    //INSERINDO DIV DO CORDEL UNITARIO DENTRO DA DIV GERAL DO MODAL CORDEL
+    divToPrint.appendChild(divPaperToPrint);
+
+    //NOVAS DIVS PARA OS VERSOS EXISTENTES
+    currentVerses.forEach((verse)=>{
+
+        const divPaperToPrintEstrofes = document.createElement("div");
+        divPaperToPrintEstrofes.classList.add("divPaperToPrint");
+
+        const imgBackgroundEstrofes = document.createElement("img");
+        imgBackgroundEstrofes.classList.add("imgBackgroundToPrint")
+        if (currentFrameBackground === 0) { imgBackgroundEstrofes.src =  papersBackground.moldura1.big} else
+        if (currentFrameBackground === 1) { imgBackgroundEstrofes.src =  papersBackground.moldura2.big} else
+        if (currentFrameBackground === 2) { imgBackgroundEstrofes.src =  papersBackground.moldura3.big} else
+        if (currentFrameBackground === 3) { imgBackgroundEstrofes.src =  papersBackground.moldura4.big} else
+        if (currentFrameBackground === 4) { imgBackgroundEstrofes.src =  papersBackground.moldura5.big} else
+        if (currentFrameBackground === 5) { imgBackgroundEstrofes.src =  papersBackground.moldura6.big}
+
+        divPaperToPrintEstrofes.appendChild(imgBackgroundEstrofes);
+        verse.forEach((estrofe)=>{
             const pParagraph = document.createElement("p");
-            pParagraph.innerText = paragraph;
-            currentDiv.appendChild(pParagraph);
+            pParagraph.classList.add("pParagraph")
+            pParagraph.innerText = estrofe
+            divPaperToPrintEstrofes.appendChild(pParagraph)
         })
 
-        win.document.body.appendChild(currentDiv);
+        divToPrint.appendChild(divPaperToPrintEstrofes);
     })
 
-    win.document.write('</body></html>');
+    setTimeout(() => {
+        window.print();
+        //body.removeChild(divToPrint);
+    }, 500);
 
-    win.print();
 }
 
 

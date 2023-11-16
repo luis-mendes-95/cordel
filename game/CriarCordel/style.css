@@ -469,4 +469,70 @@ input{
     transform: scale(1.1);
     transition: 0.3s;
 }
+.divToPrint{
+    width: 100vw;
+    height: 100vh;
+    background-color: gray;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 6;
+    display: flex;
+    justify-content: space-around;
+    align-content: flex-start;
+    flex-wrap: wrap;
+    gap: 4%;
+}
+
+.divPaperToPrint{
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 8cm;
+    height: 8cm;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+.divPaperToPrintEstrofes{
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 8cm;
+    height: 8cm;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.imgBackgroundToPrint{
+    width: 100%;
+}
+.pTitleToPrint{
+    margin: -70% 0 0 0;
+    font-family: 'MinhaFonte';
+    font-size: 1cm;
+    text-align: center;
+    width: 95%;
+    word-wrap: break-word;
+}
+.pAutorToPrint{
+    margin: 20% 0 0 0;
+    font-family: 'MinhaFonte';
+    font-size: 0.5cm;
+    text-align: center;
+    width: 80%;
+    word-wrap: break-word;
+}
+.pParagraph{
+    margin: -15% 0 0 0;
+    font-family: 'MinhaFonte';
+    font-size: 0.35cm;
+    text-align: center;
+    width: 80%;
+    word-wrap: break-word;
+    height: 1px;
+}
 
