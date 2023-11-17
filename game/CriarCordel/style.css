@@ -515,7 +515,7 @@ input{
     font-family: 'MinhaFonte';
     font-size: 1cm;
     text-align: center;
-    width: 95%;
+    width: 75%;
     word-wrap: break-word;
 }
 .pAutorToPrint{
@@ -533,6 +533,6 @@ input{
     text-align: center;
     width: 80%;
     word-wrap: break-word;
-    height: 1px;
+    height: 3px;
 }
 

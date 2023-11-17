@@ -774,7 +774,7 @@ const imprimirConteudo = () => {
 
     setTimeout(() => {
         window.print();
-        //body.removeChild(divToPrint);
+        body.removeChild(divToPrint);
     }, 500);
 
 }
